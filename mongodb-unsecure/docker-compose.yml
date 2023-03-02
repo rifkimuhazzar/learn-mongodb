@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  mongo-unsecure:
+    container_name: mongo-unsecure
+    image: mongo:latest
+    ports:
+      - 37027:27017
+    command: mongod --auth
+    # command: mongod --auth
+    
+# tambahkan --auth jika sudah membuat usernya di database admin, dan hapus containernya kemudian buat lagi dengan command: mongod --auth dan jalankan lagi    
+
+# notes salah
+# jika menghapus dengan `docker compose down` lalu membuat containernya lagi lalu mejalankan lagi containernya, maka pada saat menggunakan mongosh --username usernamenya --password passwordnya, ini akan terjadi Authentication failed padahal sudah memasukkan user dan pass yang benar.
+
+# notes benar
+# buat docker composenya bisa dengan `docker compose create` lalu `docker compose start` atau bisa dibuat dan dijalankan langsung dengan `docker-compose -f docker-compose.yml up -d`
+# buat usernya di database admin.
+# shutdown docker composenya dengan `docker compose stop` atau `docker-compose -f docker-compose.yml stop` setelah membuat user di admin.
+# ubah command di docker composenya menjadi mongod -- auth
+# lalu recreate containernya dengan `docker compose create` lalu `docker compose start` atau bisa langsung dengan satu perintah `docker-compose -f docker-compose.yml up -d`
+
+# peritah untuk authentikasinya
+# mongosh --username mongo --password mongo
+# mongosh --username mongo --password mongo --host localhost --port 27017
